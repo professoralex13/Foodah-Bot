@@ -37,7 +37,7 @@ namespace Foodah_Bot
             // var token = File.ReadAllText("token.txt");
             // var token = JsonConvert.DeserializeObject<AConfigurationClass>(File.ReadAllText("config.json")).Token;
 
-            await _client.LoginAsync(TokenType.Bot, token);
+            await _client.LoginAsync(TokenType.Bot, token); 
             await _client.StartAsync();
             await _commands.InstallCommandsAsync();
             // Block this task until the program is closed.
