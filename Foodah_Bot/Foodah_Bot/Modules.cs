@@ -23,6 +23,10 @@ namespace Foodah_Bot
         [Command("define")]
         public async Task DefineAsync(string item)
         {
+            await ReplyAsync("", false, Define(item));
+        }
+        public static Embed Define(string item)
+        {
             var client = new RestClient("https://mashape-community-urban-dictionary.p.rapidapi.com/define?term=" + item);
             var request = new RestRequest(Method.GET);
             request.AddHeader("x-rapidapi-host", "mashape-community-urban-dictionary.p.rapidapi.com");
@@ -31,8 +35,7 @@ namespace Foodah_Bot
             var embed = new EmbedBuilder();
             embed.WithTitle("Urban Dictionary Defines " + item + " as:");
             embed.WithDescription(response.Content.Split('"')[5]);
-            await ReplyAsync("", false, embed.Build());
-
+            return embed.Build();
         }
         [Command("define")]
         public async Task DefineAsync()

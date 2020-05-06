@@ -16,7 +16,7 @@ namespace Foodah_Bot
         private SocketGuild _guild;
         private SocketTextChannel _general;
         private SocketTextChannel _updates;
-
+        private SocketTextChannel _talkFoodah;
         bool channelsLoaded;
         public static void Main(string[] args)
         => new Program().MainAsync().GetAwaiter().GetResult();
@@ -52,17 +52,17 @@ namespace Foodah_Bot
             while (true)
             {
                 char[] splitters = { ' ' };
-                var cmd = Console.ReadLine().Split(splitters,3, StringSplitOptions.RemoveEmptyEntries);
-                if(cmd[0] == "sendmsg")
+                var cmd = Console.ReadLine().Split(splitters, 3, StringSplitOptions.RemoveEmptyEntries);
+                if (cmd[0] == "sendmsg")
                 {
                     if (channelsLoaded)
                         HandleSendMsg(cmd);
                     else
                         Console.WriteLine("Load Channels First");
                 }
-                if (cmd[0] == "loadchannels")
+                else if (cmd[0] == "loadchannels")
                     LoadChannels();
-                if(cmd[0] == "start")
+                else if (cmd[0] == "start")
                 {
                     if (cmd[1] == "msgsession")
                     {
@@ -71,31 +71,113 @@ namespace Foodah_Bot
                         else
                             Console.WriteLine("Load Channels First");
                     }
+                }
+                else if (cmd[0] == "deletemsg")
+                {
+                    HandleMessageDelete(cmd);
+                }
+                //else if(cmd[0] == "DMUser")
+                //{
+                  //  HandleDMSession();
+                //}
+                else
+                {
+                    Console.WriteLine("Cannot find command of that name");
+                }
+            }
+        }
+        void HandleDMSession(string[] cmd)
+        {
 
+        }
+        void HandleMessageDelete(string[] cmd)
+        {
+            if (cmd.Length == 1)
+            {
+                Console.WriteLine("Missing Argument");
+                return;
+            }
+            else if (cmd[1] == "general")
+            {
+                while (true)
+                {
+                    Console.WriteLine("Input Message ID");
+                    ulong id = 0;
+                    if (ulong.TryParse(Console.ReadLine(), out id))
+                    {
+                        _general.DeleteMessageAsync(id);
+                        Console.WriteLine("Message was deleted");
+                        break;
+                    }
+                    else
+                        Console.WriteLine("That is not a message ID");
                 }
             }
         }
         void HandleMessageSession(string[] cmd)
         {
             Console.WriteLine("Message session started in " + cmd[2]);
-            if(cmd[2] == "general")
+            if (cmd[2] == "general")
             {
-                while(true)
+                while (true)
                 {
                     var msg = Console.ReadLine();
-                    if(msg == "exit")
+                    var msgsplit = msg.Split(' ');
+                    if (msg == "exit")
                     {
-
+                        Console.WriteLine("Message Session Left");
+                        break;
                     }
+                    else if (msgsplit[0] == "define")
+                    {
+                        _general.SendMessageAsync("", false, DefineModule.Define(msgsplit[1]));
+                        Console.WriteLine("Definition Sent");
+                    }
+
+                    else
+                        _general.SendMessageAsync(msg);
+                }
+            }
+            if (cmd[2] == "talk")
+            {
+                while (true)
+                {
+                    var msg = Console.ReadLine();
+                    var msgsplit = msg.Split(' ');
+                    if (msg == "exit")
+                    {
+                        Console.WriteLine("Message Session Left");
+                        break;
+                    }
+                    else if (msgsplit[0] == "define")
+                    {
+                        _talkFoodah.SendMessageAsync("", false, DefineModule.Define(msgsplit[1]));
+                        Console.WriteLine("Definition Sent");
+                    }
+
+                    else
+                        _talkFoodah.SendMessageAsync(msg);
                 }
             }
         }
         void HandleSendMsg(string[] cmd)
         {
             if (cmd[1] == "general")
+            {
                 _general.SendMessageAsync(cmd[2]);
+                Console.WriteLine("Message was sent in general");
+            }
             else if (cmd[1] == "updates")
+            {
                 _updates.SendMessageAsync(cmd[2]);
+                Console.WriteLine("Message was sent in Updates");
+
+            }
+            else if(cmd[1] == "talk")
+            {
+                _talkFoodah.SendMessageAsync(cmd[2]);
+                Console.WriteLine("Message was sent in talk to foodah");
+            }
             else
             {
                 Console.WriteLine("That is not an available channel");
@@ -106,6 +188,7 @@ namespace Foodah_Bot
             _guild = _client.GetGuild(672344980970536960);
             _general = _guild.GetTextChannel(672661558895050782);
             _updates = _guild.GetTextChannel(673063695827337247);
+            _talkFoodah = _guild.GetTextChannel(707424511275958282);
             Console.WriteLine("Channels Loaded");
             channelsLoaded = true;
         }
@@ -114,5 +197,7 @@ namespace Foodah_Bot
             Console.WriteLine(msg.ToString());
             return Task.CompletedTask;
         }
+
     }
 }
+
