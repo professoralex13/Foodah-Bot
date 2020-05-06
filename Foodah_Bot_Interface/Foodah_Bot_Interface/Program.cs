@@ -74,10 +74,10 @@ namespace Foodah_Bot_Interface
                 {
                     HandleMessageDelete(cmd);
                 }
-                //else if(cmd[0] == "DMUser")
-                //{
-                //  HandleDMSession();
-                //}
+                else if(cmd[0] == "DMUser")
+                {
+                    HandleDMSession(cmd);   
+                }
                 else
                 {
                     Console.WriteLine("Cannot find command of that name");
@@ -86,7 +86,13 @@ namespace Foodah_Bot_Interface
         }
         void HandleDMSession(string[] cmd)
         {
-
+            if (!channelsLoaded)
+                Console.WriteLine("Load channels first");
+            SocketGuildUser user = _guild.GetUser(ulong.Parse(cmd[1]));
+            while (true)
+            {
+                user.SendMessageAsync(Console.ReadLine());
+            }
         }
         void HandleMessageDelete(string[] cmd)
         {
