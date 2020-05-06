@@ -126,3 +126,5 @@ C:\Users\Alex\source\repos\Foodah-Bot\Foodah_Bot\Foodah_Bot\bin\Debug\System.Thr
 C:\Users\Alex\source\repos\Foodah-Bot\Foodah_Bot\Foodah_Bot\obj\Debug\Foodah_Bot.csproj.CopyComplete
 C:\Users\Alex\source\repos\Foodah-Bot\Foodah_Bot\Foodah_Bot\obj\Debug\Foodah_Bot.exe
 C:\Users\Alex\source\repos\Foodah-Bot\Foodah_Bot\Foodah_Bot\obj\Debug\Foodah_Bot.pdb
+C:\Users\Alex\source\repos\Foodah-Bot\Foodah_Bot\Foodah_Bot\bin\Debug\RestSharp.dll
+C:\Users\Alex\source\repos\Foodah-Bot\Foodah_Bot\Foodah_Bot\bin\Debug\RestSharp.xml

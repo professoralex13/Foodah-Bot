@@ -36,7 +36,6 @@ namespace Foodah_Bot
             await _commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(),
                                             services: null);
         }
-
         private async Task HandleCommandAsync(SocketMessage messageParam)
         {
             // Don't process the command if it was a system message
@@ -47,8 +46,8 @@ namespace Foodah_Bot
             int argPos = 0;
 
             // Determine if the message is a command based on the prefix and make sure no bots trigger commands
-            if (!(message.HasCharPrefix('-', ref argPos) ||
-                message.HasMentionPrefix(_client.CurrentUser, ref argPos)) ||
+            if (/*!message.HasCharPrefix('-', ref argPos) || */
+                message.HasMentionPrefix(_client.CurrentUser, ref argPos) ||
                 message.Author.IsBot)
                 return;
 
