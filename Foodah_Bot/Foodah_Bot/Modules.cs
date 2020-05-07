@@ -18,6 +18,20 @@ namespace Foodah_Bot
             await ReplyAsync(msg);
         }
     }
+    /*
+    public class EmojiModule : ModuleBase<SocketCommandContext>
+    {
+        [Command("add emoji")]
+        public async Task EmojiAsync(string name)
+        {
+            for (int i = 0; i < Context.Message.Attachments.Count; i++)
+            {
+                if()
+            }
+            Context.Guild.CreateEmoteAsync(name, )
+        }
+    }
+    */
     public class RemindMalestromModule : ModuleBase<SocketCommandContext>
     {
         [Command("notify malestrom")]
