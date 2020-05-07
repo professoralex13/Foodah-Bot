@@ -18,6 +18,15 @@ namespace Foodah_Bot
             await ReplyAsync(msg);
         }
     }
+    public class RemindMalestromModule : ModuleBase<SocketCommandContext>
+    {
+        [Command("notify malestrom")]
+        public async Task MalestromAsync(string Id)
+        {
+            await ReplyAsync(Context.Guild.GetUser(ulong.Parse(Id)).Mention + " GET YO ASS OVER HERE MALESTROM IS STARTING");
+            await Context.Channel.DeleteMessageAsync(Context.Message);
+        }
+    }
     public class DefineModule : ModuleBase<SocketCommandContext>
     {
         [Command("define")]
