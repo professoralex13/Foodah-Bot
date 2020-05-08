@@ -23,21 +23,44 @@ namespace Foodah_Bot_Interface
         public async Task MainAsync()
         {
             Console.WriteLine("Starting Foodah Interface Client, once client has loaded input loadchannels");
+
             _client = new DiscordSocketClient();
             _service = new CommandService();
             _client.Log += Log;
 
             //  You can assign your bot token to a string, and pass that in to connect.
             //  This is, however, insecure, particularly if you plan to have your code hosted in a public repository.
-            var token = "NzA3NDIwNDQ4NDcxNjQ2MjE4.XrIlVw.4uU5IQkPyfqD5utL27QiNuu2IyE";
 
             // Some alternative options would be to keep your token in an Environment Variable or a standalone file.
             // var token = Environment.GetEnvironmentVariable("NameOfYourEnvironmentVariable");
             // var token = File.ReadAllText("token.txt");
             // var token = JsonConvert.DeserializeObject<AConfigurationClass>(File.ReadAllText("config.json")).Token;
-
-            await _client.LoginAsync(TokenType.Bot, token);
-            await _client.StartAsync();
+            var token = "";
+            if (Environment.GetEnvironmentVariable("FOODAHTOKEN") == null)
+            {
+                Console.WriteLine("Cannot Find Auth Token, Please Input it");
+                while (true)
+                {
+                    try
+                    {
+                        token = Console.ReadLine();
+                        await _client.LoginAsync(TokenType.Bot, token);
+                        await _client.StartAsync();
+                        break;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Incorrect Token");
+                    }
+                }
+            }
+            else
+            {
+                token = Environment.GetEnvironmentVariable("FOODAHTOKEN");
+                await _client.LoginAsync(TokenType.Bot, token);
+                await _client.StartAsync();
+            }
+            
             // Block this task until the program is closed.
             HandleConsole();
             _guild = _client.GetGuild(672344980970536960);
