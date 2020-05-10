@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Foodah_Bot
-{
     public class EllaModule : ModuleBase<SocketCommandContext>
     {
         [Command("ella")]
@@ -17,18 +15,6 @@ namespace Foodah_Bot
             embed.WithTitle("Heres Ella");
             embed.WithColor(Color.Orange);
             embed.WithImageUrl("http://randomfox.ca/images/3.jpg");
-            await ReplyAsync("", false, embed.Build());
-        }
-    }
-    public class RyanModule : ModuleBase<SocketCommandContext>
-    {
-        [Command("ryan")]
-        public async Task RyanAsync()
-        {
-            var embed = new EmbedBuilder();
-            embed.WithColor(new Color(71, 209, 164));
-            embed.WithTitle("Heres Ryan");
-            embed.WithImageUrl("https://media.discordapp.net/attachments/652311209701539840/707834761657450586/IMG_20200308_095900.jpg?width=303&height=630");
             await ReplyAsync("", false, embed.Build());
         }
     }
@@ -64,14 +50,14 @@ namespace Foodah_Bot
         public async Task JamesAsync()
         {
             var embed = new EmbedBuilder();
-            embed.WithColor(new Color(0,0,0));
+            embed.WithColor(new Color(0, 0, 0));
             embed.WithTitle("Heres James");
             embed.WithImageUrl("https://pics.me.me/thumb_ea-%E5%8F%A3%E3%83%A8-kerchow-lightning-mcqueens-ka-chow-know-your-53001052.png");
             await ReplyAsync("", false, embed.Build());
 
         }
     }
-    public class AlexModule :ModuleBase<SocketCommandContext>
+    public class AlexModule : ModuleBase<SocketCommandContext>
     {
         [Command("alex")]
         public async Task AlexAsync()
@@ -99,4 +85,4 @@ namespace Foodah_Bot
 
         }
     }
-}
+
