@@ -32,6 +32,18 @@ namespace Foodah_Bot
             await ReplyAsync("", false, embed.Build());
         }
     }
+    public class CharlotteModule : ModuleBase<SocketCommandContext>
+    {
+        [Command("charlotte")]
+        public async Task CharlotteAsync()
+        {
+            var embed = new EmbedBuilder();
+            embed.WithColor(new Color(255, 135, 0));
+            embed.WithTitle("Heres Charlotte");
+            embed.WithImageUrl("https://i.ytimg.com/vi/fWK9xmBdZrc/maxresdefault.jpg");
+            await ReplyAsync("", false, embed.Build());
+        }
+    }
     public class EmilyModule : ModuleBase<SocketCommandContext>
     {
         [Command("emily")]
