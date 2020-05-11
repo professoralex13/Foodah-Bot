@@ -99,6 +99,11 @@ namespace Foodah_Bot
     }
     public class JoranModule : ModuleBase<SocketCommandContext>
     {
+        [Command("moodah")]
+        public async Task TaskMoodahAsync()
+        {
+            await JoranAsync();
+        }
         [Command("joran")]
         public async Task JoranAsync()
         {
