@@ -233,6 +233,23 @@ namespace Foodah_Bot
             await ReplyAsync("idk wtf u want me to give you a random thing of");
         }
     }
+    public class NicknameModule : ModuleBase<SocketCommandContext>
+    { 
+        [Command("setNickname")]
+        public async Task NicknameAsync(string id, string newName)
+        {
+            await ReplyAsync("Renaming Person");
+            await Context.Message.DeleteAsync();
+            var user = Context.User as SocketGuildUser;
+            var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == "Emoji");
+            if (!user.Roles.Contains(role))
+            {                
+                return;
+            }
+            await Context.Guild.GetUser(ulong.Parse(id)).ModifyAsync(p => p.Nickname = newName);
+        }
+    }
+
     public class LoveModule : ModuleBase<SocketCommandContext>
     {
         [Command("i love")]
