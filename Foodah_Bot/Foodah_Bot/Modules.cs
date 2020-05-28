@@ -51,6 +51,49 @@ namespace Foodah_Bot
             await ReplyAsync(response.Content.Split(':')[7]);
         }
     }
+    public class SpamModule : ModuleBase<SocketCommandContext>
+    {
+        [Command("spam")]
+        public async Task SpamAsync(string thing, int amount)
+        {
+            if (amount > 20)
+                await ReplyAsync("Im not spamming that many times for fucks sake");
+            for (int i = 0; i < amount; i++)
+            {
+                await ReplyAsync(thing);
+            }
+        }
+        [Command("spam")]
+        public async Task Spam()
+        {
+            await ReplyAsync("Ok here i go");
+            await ReplyAsync("3");
+            await Task.Delay(1000);
+            await ReplyAsync("2");
+            await Task.Delay(1000);
+            await ReplyAsync("1");
+            await Task.Delay(1000);
+            await ReplyAsync("REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        }
+    }
+    public class noU : ModuleBase<SocketCommandContext>
+    {
+        [Command("no u")]
+        public async Task NoU()
+        {
+            await ReplyAsync("no u");
+        }
+        [Command("no u x")]
+        public async Task NoUAmount(int amount)
+        {
+            if (amount > 20)
+                await ReplyAsync("Im not No Uing that many times for fucks sake");
+            for (int i = 0; i < amount; i++)
+            {
+                await ReplyAsync("no u");
+            }
+        }
+    }
     public class EmojiModule : ModuleBase<SocketCommandContext>
     {
         [Command("add emoji")]

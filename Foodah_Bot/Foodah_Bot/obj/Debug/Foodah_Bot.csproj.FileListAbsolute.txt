@@ -259,3 +259,4 @@ C:\Projects\Foodah-Bot\Foodah_Bot\Foodah_Bot\obj\Debug\Foodah_Bot.csproj.CopyCom
 C:\Projects\Foodah-Bot\Foodah_Bot\Foodah_Bot\obj\Debug\Foodah_Bot.exe
 C:\Projects\Foodah-Bot\Foodah_Bot\Foodah_Bot\obj\Debug\Foodah_Bot.pdb
 C:\Projects\Foodah-Bot\Foodah_Bot\Foodah_Bot\obj\Debug\Foodah_Bot.csproj.CoreCompileInputs.cache
+C:\Users\Alex\source\repos\Foodah-Bot\Foodah_Bot\Foodah_Bot\obj\Debug\Foodah_Bot.csproj.CoreCompileInputs.cache
