@@ -4,8 +4,11 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
@@ -13,6 +16,54 @@ using RestSharp;
 using RestSharp.Deserializers;
 namespace Foodah_Bot
 {
+    [XmlRoot("tags")]
+    public class Tags
+    {
+        [XmlElement("tag", typeof(Tag))]
+        public List<Tag> TagList { get; set; }
+        public class Tag
+        {
+            [XmlElement("Title")]
+            public string Title { get; set; }
+            [XmlElement("SheetMusic")]
+            public string SheetMusic { get; set; }
+            [XmlElement("SungBy")]
+            public string Quartet { get; set; }
+        }
+    }
+
+    public class TagsModule : ModuleBase<SocketCommandContext>
+    {
+            
+        [Command("tag")]
+        public async Task TagAsync(string tagName)
+        {
+            var requestName = tagName;
+            requestName.Replace(" ", "%20");    
+            
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://www.barbershoptags.com/api.php?fldlist=Title,SungBy,SheetMusic&SheetMusic=Yes&q=" + tagName);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            request.Credentials = CredentialCache.DefaultCredentials;
+            Stream receiveStream = response.GetResponseStream();
+            StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);   
+
+            XmlSerializer serializer = new XmlSerializer(typeof(Tags));
+            Tags tags = (Tags)serializer.Deserialize(readStream);
+            var embed = new EmbedBuilder();
+            embed.WithTitle("Found " + tags.TagList.Count + " results when searching for " + tagName);
+            foreach (var item in tags.TagList)
+            {
+                var builder = new EmbedFieldBuilder();
+                builder.WithName(item.Title);
+                string content = "[Sheet Music](" + item.SheetMusic + ")";
+                builder.WithValue(content);
+                embed.WithFields(builder);
+            }
+            await ReplyAsync("", false, embed.Build());
+            response.Close();
+            readStream.Close();
+        }
+    }
     public class BallsModule : ModuleBase<SocketCommandContext>
     {
         [Command("balls")]
@@ -200,7 +251,8 @@ namespace Foodah_Bot
             var description = "Balls" + Environment.NewLine + "Help" + Environment.NewLine;
             description += "yeet" + Environment.NewLine + "random" + Environment.NewLine;
             description += "i love" + Environment.NewLine + "Peoples Names" + Environment.NewLine;
-            description += "whats the weather" + Environment.NewLine + "define";
+            description += "whats the weather" + Environment.NewLine + "define" + Environment.NewLine;
+            description += "tag";
             embed.WithDescription(description);
             await ReplyAsync("", false, embed.Build());
             await ReplyAsync("So yeah, I can do alot of stuff");
